@@ -1,0 +1,33 @@
+#!/bin/sh
+
+if [ 1 -ne $# ];
+then
+    echo './constol [start|stop]'
+    exit 1
+fi
+
+commod=x$1
+CWD=`dirname "${0}"` ||exit 1
+CWD=`cd "${CWD}"/.. && pwd` || exit 1
+
+export JAVA_HOME=${CWD}/jdk
+export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+PATH=$PATH:$JAVA_HOME/bin
+export PATH
+
+if [ $commod == "xstart" ];
+then
+    cd ${CWD} && ./bin/elasticsearch -d
+    exit 0
+fi
+
+if [ $commod == "xstop" ];
+then
+    pid=`ps -ef | grep -v grep | grep ${CWD} | grep java | awk '{print $2}'`
+    echo $pid
+    kill $pid
+    exit 0
+fi
+
+echo "wrong param"
+exit 1

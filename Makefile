@@ -27,6 +27,7 @@ all: clean
 	$(MV) $(STAGING)/tmp/$(ES)/* $(STAGING)/
 	$(MV) $(STAGING)/tmp/$(JAVA) $(STAGING)/jdk/
 	$(CP) $(CWD)/bin/* $(STAGING)/bin/
+	$(CP) $(CWD)/etc/elasticsearch.yml $(STAGING)/config/
 
 
 

@@ -24,8 +24,15 @@ fi
 if [ $commod == "xstop" ];
 then
     pid=`ps -ef | grep -v grep | grep ${CWD} | grep java | awk '{print $2}'`
-    echo $pid
-    kill $pid
+    if [ ! $pid ];
+    then
+        exit 0
+    fi
+    if [ $pid -gt 1 ];
+    then
+        echo "kill:" $pid
+        kill $pid
+    fi
     exit 0
 fi
 
